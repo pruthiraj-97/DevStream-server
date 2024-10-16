@@ -3,10 +3,10 @@ class DashBoardRepository{
     constructor(){
        console.log('Dashboard repository is connected')
     }
-    async create(name,owner){
+    async create(owner){
         const result=await DashboardModel.create({
-            name,
-            owner
+            owner,
+            collaborators:[owner]
         })
         return result
     }
@@ -52,6 +52,15 @@ class DashBoardRepository{
       },{new:true})
       console.log(updatedCode)
       return updatedCode
+    }
+    async getCollaborators(dashboardId){
+        const result=await DashboardModel.findOne({_id:dashboardId})
+        .populate({
+            path:'collaborators',
+            select:'name _id email'
+        })
+        .select('collaborators')
+        return result
     }
 }
 

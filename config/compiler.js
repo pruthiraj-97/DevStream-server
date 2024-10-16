@@ -1,47 +1,58 @@
 const axios=require('axios')
 
 const languageConfig = {
-    python3: { versionIndex: "3" },
-    java: { versionIndex: "3" },
-    cpp: { versionIndex: "4" },
-    nodejs: { versionIndex: "3" },
-    c: { versionIndex: "4" },
-    ruby: { versionIndex: "3" },
-    go: { versionIndex: "3" },
-    scala: { versionIndex: "3" },
-    bash: { versionIndex: "3" },
-    sql: { versionIndex: "3" },
-    pascal: { versionIndex: "2" },
-    csharp: { versionIndex: "3" },
-    php: { versionIndex: "3" },
-    swift: { versionIndex: "3" },
-    rust: { versionIndex: "3" },
-    r: { versionIndex: "3" },
+    python3: "3",
+    java: "3",
+    cpp: "4",
+    nodejs: "3",
+    c: "4",
+    ruby: "3",
+    go: "3",
+    scala: "3",
+    bash: "3",
+    sql: "3",
+    pascal: "2",
+    csharp: "3",
+    php: "3",
+    swift: "3",
+    rust: "3",
+    r: "3",
   };
   
+  const languageServer={
+    javascript:'nodejs',
+    python:'python3',
+  }
 
 
 async function compileCode(language,code){
     try {
+        const serverlanguage=languageServer[language]
+        if(!serverlanguage){
+            return {
+                data:null,
+                error:'language not supported'
+            }
+        }
         const response = await axios.post('https://api.jdoodle.com/v1/execute', {
-            script: 'print("Hello, World!")',
-            language: "python3",
-            versionIndex: "3",
+            script:code,
+            language: serverlanguage,
+            versionIndex:languageConfig.nodejs,
             clientId: process.env.JDOODLE_ID, 
             clientSecret: process.env.JDOODLE_SECRET,
           });
           
         const data=await response.data
-        console.log("compile data is ",data)
         let result={
             data:data,
             error:null
         }
         return result
     } catch (error) {
+        console.log(error)
         let result={
             data:null,
-            error:'error in code compilation '+error
+            error:'error in code compilation '
         }
         return result
     }

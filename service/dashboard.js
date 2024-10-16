@@ -4,8 +4,8 @@ class DashBoardService{
     constructor(){
         console.log('Dashboard service is connected')
     }
-    async createDashboard(name,id){
-       const result=await DashBoardRepository.create(name,id)
+    async createDashboard(id){
+       const result=await DashBoardRepository.create(id)
        return {
         status:200,
         error:null,
@@ -60,6 +60,18 @@ class DashBoardService{
             data:{
                 message:"code updated successfully",
                 dashboard:result
+            }
+        }
+    }
+    async getAllCollaborators(dashboardId){
+        const result=await DashBoardRepository.getCollaborators(dashboardId)
+        console.log(result)
+        return {
+            status:200,
+            error:null,
+            data:{
+                message:"get dashboard details",
+                collaborators:result.collaborators
             }
         }
     }

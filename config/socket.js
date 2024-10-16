@@ -9,16 +9,17 @@ let io;
 app.use(express.json())
 function startSocketConnection(){
    try {
-    io = new Server(server);
+    io = new Server(server,{
+      cors:{
+            origin:"*",
+            credentials:true
+      }
+    });
     io.on('connection', (socket) => {
-       console.log('a user connected');
-       const userId=socket.handshake.query.userId
-       console.log(userId+" "+socket.id)
-       //addUserSocketId(userId,socket.id)
-       socket.on('join_room',async (DashboardId)=>{
+       console.log("socket id is ",socket.id)
+       socket.on('join_room',async (DashboardId,userId)=>{
            if(DashboardId){
-               let ans=socket.join(DashboardId)
-               console.log(ans)
+               socket.join(DashboardId)
                console.log(`user with id ${userId} joined room ${DashboardId}`)
            }else{
             console.log('roomId not found')

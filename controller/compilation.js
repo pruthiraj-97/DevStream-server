@@ -1,4 +1,5 @@
 const CompilterService=require('../service/compilation')
+const { sendCompilationEvent }=require('../utils/notification')
 async function compilalation(req,res){
     try {
         const {language,code}=req.body
@@ -13,6 +14,7 @@ async function compilalation(req,res){
                 data:null
             })
         }
+        await sendCompilationEvent(id,payload)
         const response=await CompilterService.compile(language,code,payload,id)
         return res.status(response.status).json(response)
     } catch (error) {
