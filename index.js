@@ -14,7 +14,7 @@ app.use(cors({
 
 app.get('/',(req,res)=>{
     res.status(200).json({
-        message:"server is running"
+        message:"well come to DevStream server"
     })
 })
 
