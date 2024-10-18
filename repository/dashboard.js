@@ -24,7 +24,7 @@ class DashBoardRepository{
         return result
     } 
     async addCollaborator(dashboardId,collaboratorId){
-        console.log(dashboardId,collaboratorId)
+        console.log("dashboardId,collaboratorId",dashboardId,collaboratorId)
         const result=await DashboardModel.findOneAndUpdate({_id:dashboardId},{
             $addToSet:{
                 collaborators:collaboratorId
@@ -39,7 +39,7 @@ class DashBoardRepository{
              path:'collaborators',
              select:'name _id'
          })
-        console.log(result)
+        console.log("after collaborator added ",result)
         return result
     }
 
@@ -60,6 +60,22 @@ class DashBoardRepository{
             select:'name _id email'
         })
         .select('collaborators')
+        return result
+    }
+    async removeCollaborator(id,userId){
+        const result=await DashboardModel.findOneAndUpdate({_id:id},{
+            $pull:{
+                collaborators:userId
+            }
+        },{new:true})
+        .populate({
+            path:'owner',
+            select:'name _id'
+        })
+        .populate({
+            path:'collaborators',
+            select:'name _id'
+        })
         return result
     }
 }

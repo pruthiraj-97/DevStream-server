@@ -84,10 +84,27 @@ async function getAllUsers(req,res){
     }
 }
 
+async function LeaveRoom(req,res){
+    try {
+        const {id}=req.params
+        const payload=req.user
+        const response=await DashBoardService.removeCollaborator(id,payload)
+        return res.status(response.status).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            data:null,
+            error:{
+                message:"somethink went wrong"
+            }
+        })
+    }
+}
+
 module.exports={
     getDashBoard,
     createDashboard,
     addCollaborators,
     updateCode,
-    getAllUsers
+    getAllUsers,
+    LeaveRoom
 }

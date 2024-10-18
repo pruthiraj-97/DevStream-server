@@ -1,4 +1,4 @@
-const { sendNewUserNotification, sendUpdateCodeNotification }=require('../utils/notification')
+const { sendNewUserNotification, sendUpdateCodeNotification ,sendRemoveCollborator }=require('../utils/notification')
 const DashBoardRepository=require('../repository/dashboard')
 class DashBoardService{
     constructor(){
@@ -63,6 +63,7 @@ class DashBoardService{
             }
         }
     }
+
     async getAllCollaborators(dashboardId){
         const result=await DashBoardRepository.getCollaborators(dashboardId)
         console.log(result)
@@ -73,6 +74,18 @@ class DashBoardService{
                 message:"get dashboard details",
                 collaborators:result.collaborators
             }
+        }
+    }
+
+    async removeCollaborator(dashboardId,payload){
+        const result=await DashBoardRepository.removeCollaborator(dashboardId,payload.id)
+        await sendRemoveCollborator(dashboardId,payload,result)
+        return {
+            status:200,
+            data:{
+                newCollborators:result
+            },
+            error:null
         }
     }
 }

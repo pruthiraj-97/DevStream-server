@@ -42,9 +42,26 @@ async function sendCompilationEvent(dashboardId,userDetails){
    io.to(dashboardId).emit('compilation_start'+dashboardId,payload)
 }
 
+async function sendRemoveCollborator(dashboardId,payload,result){
+   const { getSocket }=require('../config/socket')
+   const io=getSocket()
+   if(!io) return null
+   const socketIds = await io.in(dashboardId).allSockets();
+   console.log("all socket are ",socketIds)
+   const sendMessage={
+      dashboardId,
+      name:payload.name,
+      id:payload.id,
+      message:`${payload.name} leave the room`,
+      result
+   }
+   io.to(dashboardId).emit('leaveMessage'+dashboardId,sendMessage)
+}
+
 module.exports={
     sendNewUserNotification,
     sendUpdateCodeNotification,
     sendCompilationResult,
-    sendCompilationEvent
+    sendCompilationEvent,
+    sendRemoveCollborator
 }

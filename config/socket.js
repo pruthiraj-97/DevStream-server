@@ -2,7 +2,8 @@ const express = require('express');
 const { createServer } = require('node:http');
 const { Server } = require('socket.io');
 const { addUserSocketId ,addToRoom}=require('../utils/redis')
-const { sendCompilationEvent }=require('../utils/notification')
+const { sendCompilationEvent }=require('../utils/notification');
+const dashboard = require('../model/dashboard');
 const app = express();
 const server = createServer(app);
 let io;
@@ -15,15 +16,21 @@ function startSocketConnection(){
             credentials:true
       }
     });
-    io.on('connection', (socket) => {
+    io.on('connection',(socket) => {
        console.log("socket id is ",socket.id)
        socket.on('join_room',async (DashboardId,userId)=>{
            if(DashboardId){
-               socket.join(DashboardId)
-               console.log(`user with id ${userId} joined room ${DashboardId}`)
+               await socket.join(DashboardId)
+               console.log(userId ,'joined room')
+               socket.emit('room_joined','room_joined')
            }else{
             console.log('roomId not found')
            }
+       })
+
+       socket.on('leave_room',(dashboardId)=>{
+         socket.leave(dashboardId)
+         console.log(dashboardId,'left room')
        })
        
        socket.on('compile_code',(dashboardId)=>{
