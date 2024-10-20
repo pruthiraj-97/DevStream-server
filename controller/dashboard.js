@@ -54,8 +54,18 @@ async function updateCode(req,res){
     try {
         const id=req.params.id
         const code=req.body.code || ''
+        const {language}=req.body
+        if(!code || !language){
+            return res.status(400).json({
+                status:400,
+                error:{
+                    message:'All fields are required'
+                },
+                data:null
+            })
+        }
         const payload=req.user
-        const response=await DashBoardService.updateCode(id,code,payload)
+        const response=await DashBoardService.updateCode(id,code,payload,language)
         return res.status(response.status).json(response)
     } catch (error) {
         return res.status(500).json({

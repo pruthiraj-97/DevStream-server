@@ -44,15 +44,15 @@ class DashBoardService{
         }
         
     }
-    async updateCode(dashboardId,code,payload){
+    async updateCode(dashboardId,code,payload,language){
         const result=await DashBoardRepository.updateCode(dashboardId,code)
         let message={
             code,
             name:payload.name,
             id:payload.id,
-            email:payload.email
+            email:payload.email,
+            language
         }
-        console.log("message is ",message)
         sendUpdateCodeNotification(dashboardId,message)
         return {
             status:200,
@@ -66,7 +66,6 @@ class DashBoardService{
 
     async getAllCollaborators(dashboardId){
         const result=await DashBoardRepository.getCollaborators(dashboardId)
-        console.log(result)
         return {
             status:200,
             error:null,

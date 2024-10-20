@@ -17,7 +17,6 @@ function startSocketConnection(){
       }
     });
     io.on('connection',(socket) => {
-       console.log("socket id is ",socket.id)
        socket.on('join_room',async (DashboardId,userId)=>{
            if(DashboardId){
                await socket.join(DashboardId)
@@ -34,7 +33,6 @@ function startSocketConnection(){
        })
        
        socket.on('compile_code',(dashboardId)=>{
-          console.log("data is ",dashboardId)
           if(dashboardId && userId){
              sendCompilationEvent(dashboardId,1224)
           }

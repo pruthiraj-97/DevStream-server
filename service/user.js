@@ -19,7 +19,6 @@ class UserService{
        let hashPassword=await bcrypt.hash(payload.password,10)
        payload.password=hashPassword
        let newUser=await userRepository.createUser(payload)
-       console.log(newUser)
        delete newUser.password
         return {
             status:200,
