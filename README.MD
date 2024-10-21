@@ -1,10 +1,10 @@
-Here’s the updated README with only the request details for the API section:
+Here's an updated README that includes the Docker section for your **DevStream** project:
 
 ---
- 
-DevStream server
 
-# Real-Time Code Collaboration Backend
+# DevStream Server
+
+## Real-Time Code Collaboration Backend
 
 This project is the backend for a real-time code collaboration platform where users can collaboratively write, compile, and execute code. The platform provides real-time code synchronization, integrates code execution services like JDoodle, and uses MongoDB and Redis for session management.
 
@@ -18,6 +18,8 @@ This project is the backend for a real-time code collaboration platform where us
 - **JDoodle API**: Integrated AI for code execution and compilation.
 
 ## Setup
+
+### Local Setup
 
 1. Clone the repository:
 
@@ -40,12 +42,40 @@ This project is the backend for a real-time code collaboration platform where us
    JDOODLE_CLIENT_ID=your-jdoodle-client-id
    JDOODLE_CLIENT_SECRET=your-jdoodle-client-secret
    JWT_SECRET=your-jwt-secret
+   REDIS_URL=your-redis-url
    ```
 
 4. Start the server:
 
    ```bash
    npm start
+   ```
+
+### Docker Setup
+
+1. Pull the Docker image:
+
+   ```bash
+   docker pull pruthiraj/devstream
+   ```
+
+2. Run the Docker container:
+
+   ```bash
+   docker run -d -p 4005:4005  pruthiraj/devstream
+   ```
+
+3. Ensure your `.env` file is correctly set up with the MongoDB, Redis, JDoodle, and other necessary credentials.
+
+   Example `.env` file:
+
+   ```bash
+   PORT=4005
+   MONGO_URI=your-mongo-uri
+   JDOODLE_CLIENT_ID=your-jdoodle-client-id
+   JDOODLE_CLIENT_SECRET=your-jdoodle-client-secret
+   JWT_SECRET=your-jwt-secret
+   REDIS_URL=your-redis-url
    ```
 
 ## API Documentation
@@ -77,7 +107,6 @@ This project is the backend for a real-time code collaboration platform where us
     }
     ```
 
-    
 ### Code Execution
 
 - **POST** `/api/compile`
@@ -97,23 +126,20 @@ This project is the backend for a real-time code collaboration platform where us
 
 - **POST** `/api/v1/dashboard/createdashboard`
 
-  create a new session.
+  Create a new session.
 
   - Request body:
     ```json
-    {
-      
-    }
+    {}
     ```
+
 - **POST** `/api/v1/dashboard/join/:id`
 
   Join a new user in the session.
 
   - Request body:
     ```json
-    {
-      
-    }
+    {}
     ```
 
 - **GET** `/api/v1/dashboard/collaborators/:id`
@@ -122,29 +148,26 @@ This project is the backend for a real-time code collaboration platform where us
 
   - Request body:
     ```json
-    {
-      
-    }
+    {}
     ```
 
 - **PUT** `/api/v1/dashboard/leave/:id`
 
-  user leave a ongoing session.
+  User leaves an ongoing session.
 
   - Request body:
     ```json
-    {
-      
-    }
+    {}
     ```
+
 - **PUT** `/api/v1/dashboard/updatecode/:id`
 
-  user leave a ongoing session.
+  Update code in a session.
 
   - Request body:
     ```json
     {
-       "code":"code"
+      "code": "code"
     }
     ```
 
@@ -158,8 +181,6 @@ This project is the backend for a real-time code collaboration platform where us
 
   Fetch user details.
 
-This gives an overview of all API.
-
 ---
 
 ## WebSocket Events
@@ -168,7 +189,7 @@ This gives an overview of all API.
 
 1. **Event**: `newuser<DashboardId>`
    - Description: Emitted when a new user joins the dashboard.
-   - Example event name: `newuser12345` for a dashboard with the ID `12345`.
+   - Example event name: `newuser12345`.
 
 2. **Event**: `newcode<DashboardId>`
    - Description: Emitted when the code is updated in a specific dashboard.
@@ -218,9 +239,8 @@ This gives an overview of all API.
 
 ---
 
-This gives an overview of all WebSocket events emitted and listened to by the server. You can customize the descriptions or event names further if needed.
+Feel free to customize the descriptions or event names further according to your project setup.
 
+--- 
 
----
-
-Feel free to customize it according to your specific project setup!
+This README now includes the Docker setup and API documentation. Let me know if you need any further changes!
