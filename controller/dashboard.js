@@ -55,7 +55,7 @@ async function updateCode(req,res){
         const id=req.params.id
         const code=req.body.code || ''
         const {language}=req.body
-        if(!code || !language){
+        if(!language){
             return res.status(400).json({
                 status:400,
                 error:{
@@ -110,11 +110,39 @@ async function LeaveRoom(req,res){
     }
 }
 
+async function LanguageChange(req,res){
+    try {
+        const {language}=req.body
+        const id=req.params.id
+        if(!language){
+            return res.status(400).json({
+                status:400,
+                data:null,
+                error:{
+                    message:"Select language"
+                }
+            })
+        }
+        const payload=req.user
+        const response=await DashBoardService.changeCurrentLanguage(id,language,payload)
+        return res.status(response.status).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            status:400,
+            data:null,
+            error:{
+                message:'some think went wronge'
+            }
+        })
+    }
+}
+
 module.exports={
     getDashBoard,
     createDashboard,
     addCollaborators,
     updateCode,
     getAllUsers,
-    LeaveRoom
+    LeaveRoom,
+    LanguageChange
 }

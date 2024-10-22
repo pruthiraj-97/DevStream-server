@@ -1,4 +1,4 @@
-const { sendNewUserNotification, sendUpdateCodeNotification ,sendRemoveCollborator }=require('../utils/notification')
+const { sendNewUserNotification, sendUpdateCodeNotification ,sendRemoveCollborator,BoardCastLanguageChange }=require('../utils/notification')
 const DashBoardRepository=require('../repository/dashboard')
 class DashBoardService{
     constructor(){
@@ -83,6 +83,17 @@ class DashBoardService{
             status:200,
             data:{
                 newCollborators:result
+            },
+            error:null
+        }
+    }
+
+    async changeCurrentLanguage(dashboardId,language,payload){
+        await BoardCastLanguageChange(dashboardId,language,payload)
+        return {
+            status:200,
+            data:{
+                message:'Language boardcast succesfully'
             },
             error:null
         }

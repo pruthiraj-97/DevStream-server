@@ -6,7 +6,8 @@ const {
     addCollaborators,
     updateCode,
     getAllUsers,
-    LeaveRoom
+    LeaveRoom,
+    LanguageChange
 }=require('../controller/dashboard')
 const { compilalation }=require('../controller/compilation')
 const { isAuthenticate }=require('../middleware/isAuthenticate')
@@ -17,5 +18,6 @@ router.put('/updatecode/:id',isAuthenticate,updateCode)
 router.post('/compile/:id',isAuthenticate,compilalation)
 router.get('/collaborators/:id',isAuthenticate,getAllUsers)
 router.put('/leave/:id',isAuthenticate,LeaveRoom)
+router.put('/updatelanguage/:id',isAuthenticate,LanguageChange)
 
 module.exports=router

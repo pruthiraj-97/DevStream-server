@@ -58,10 +58,27 @@ async function sendRemoveCollborator(dashboardId,payload,result){
    io.to(dashboardId).emit('leaveMessage'+dashboardId,sendMessage)
 }
 
+async function BoardCastLanguageChange(dashboardId,language,payload){
+   const { getSocket }=require('../config/socket')
+   const io=getSocket()
+   if(!io) return null
+   const socketIds = await io.in(dashboardId).allSockets();
+   console.log("all socket are ",socketIds)
+   const Message={
+      language:language,
+      user:payload.name,
+      id:payload.id,
+      info:`${payload.name} change the language`
+   }
+   console.log(Message)
+   io.to(dashboardId).emit('language_change'+dashboardId,Message)
+}
+
 module.exports={
     sendNewUserNotification,
     sendUpdateCodeNotification,
     sendCompilationResult,
     sendCompilationEvent,
-    sendRemoveCollborator
+    sendRemoveCollborator,
+    BoardCastLanguageChange
 }
