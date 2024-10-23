@@ -10,9 +10,11 @@ class CompilterService{
             code:code,
             language:language,
             userDetails:userDetails,
-            compilationResult:response.data
+            compilationResult:response.data,
+            error:response.error
         }
-        sendCompilationResult(dashboardId,payload)
+        console.log(response)
+        sendCompilationResult(dashboardId,payload) // socket message
         if(!response.data){
             return {
                 status:200,
