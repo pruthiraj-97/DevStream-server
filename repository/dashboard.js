@@ -23,6 +23,7 @@ class DashBoardRepository{
         })
         return result
     } 
+    
     async addCollaborator(dashboardId,collaboratorId){
         console.log("dashboardId,collaboratorId",dashboardId,collaboratorId)
         const result=await DashboardModel.findOneAndUpdate({_id:dashboardId},{

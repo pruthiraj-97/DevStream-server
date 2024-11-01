@@ -22,12 +22,15 @@ const languageConfig = {
   const languageServer={
     javascript:'nodejs',
     python:'python3',
+    cpp:"cpp",
+    java:"java"
   }
 
 
 async function compileCode(language,code){
     try {
         const serverlanguage=languageServer[language]
+        console.log("server language",serverlanguage)
         if(!serverlanguage){
             return {
                 data:null,

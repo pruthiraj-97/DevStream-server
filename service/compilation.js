@@ -14,13 +14,13 @@ class CompilterService{
             error:response.error
         }
         console.log(response)
-        sendCompilationResult(dashboardId,payload) // socket message
+        sendCompilationResult(dashboardId,payload)
         if(!response.data){
             return {
                 status:200,
                 data:null,
                 error:{
-                    message:'error in code compilation try again'
+                    message:response.error
                 }
             }
         }else{
