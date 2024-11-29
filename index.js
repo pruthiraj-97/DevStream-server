@@ -25,7 +25,7 @@ function startServer(){
         server.listen(PORT,()=>{
             console.log('server is running on port',PORT)
         })
-        //redis_client.connect()
+        redis_client.connect()
         connectDB()
     } catch (error) {
         console.log('error in server connection')

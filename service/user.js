@@ -1,6 +1,7 @@
 const userRepository=require('../repository/user')
 const bcrypt=require('bcryptjs')
 const JWT=require('jsonwebtoken')
+const { SetUserTokenForRateLimiting }=require('../utils/redis')
 class UserService{
     constructor(){
     console.log('User service is connected')
@@ -57,6 +58,10 @@ class UserService{
         }
         delete isUserExist.password
         const token=JWT.sign(userPayload,process.env.JWT_SECRET,{expiresIn:'1d'})
+        const currentDate = new Date();
+        const currentTime=(currentDate.toString()).substring(0,21);
+        //const result=await SetUserTokenForRateLimiting(token,currentTime,0);
+        console.log(result)
         return {
             status:200,
             data:{

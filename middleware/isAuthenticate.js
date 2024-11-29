@@ -1,7 +1,8 @@
 const JWT=require('jsonwebtoken')
-function isAuthenticate(req,res,next){
+const { DeleteTokenLimit }=require('../utils/redis')
+async function isAuthenticate(req,res,next){
+    const token=req.headers['x-access-token']
     try {
-        const token=req.headers['x-access-token']
         const payload=JWT.verify(token,process.env.JWT_SECRET)
         if(!payload){
             return res.status(401).json({
@@ -15,6 +16,7 @@ function isAuthenticate(req,res,next){
         req.user=payload
         next()
     } catch (error) {
+        //await DeleteTokenLimit(token)
         return res.status(401).json({
             data:null,
             status:401,

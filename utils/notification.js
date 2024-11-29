@@ -1,5 +1,6 @@
 const { getAllUserInRoom }=require('./redis')
 const UserRepository=require('../repository/user')
+
 async function sendNewUserNotification(DashboardId,payload){
    const { getSocket }=require('../config/socket')
    const io=getSocket()
