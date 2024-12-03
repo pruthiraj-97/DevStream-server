@@ -30,7 +30,6 @@ const languageConfig = {
 async function compileCode(language,code){
     try {
         const serverlanguage=languageServer[language]
-        console.log("server language",serverlanguage)
         if(!serverlanguage){
             return {
                 data:null,
@@ -52,7 +51,6 @@ async function compileCode(language,code){
         }
         return result
     } catch (error) {
-        console.log(error)
         let result={
             data:null,
             error:'error in code compilation '

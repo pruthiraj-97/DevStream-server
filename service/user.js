@@ -60,8 +60,7 @@ class UserService{
         const token=JWT.sign(userPayload,process.env.JWT_SECRET,{expiresIn:'1d'})
         const currentDate = new Date();
         const currentTime=(currentDate.toString()).substring(0,21);
-        //const result=await SetUserTokenForRateLimiting(token,currentTime,0);
-        console.log(result)
+        const result=await SetUserTokenForRateLimiting(token,currentTime,0);
         return {
             status:200,
             data:{

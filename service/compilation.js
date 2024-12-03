@@ -13,7 +13,6 @@ class CompilterService{
             compilationResult:response.data,
             error:response.error
         }
-        console.log(response)
         sendCompilationResult(dashboardId,payload)
         if(!response.data){
             return {

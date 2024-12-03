@@ -20,7 +20,8 @@ const setRateLimiterForCompilation=async(req,res,next)=>{
              await SetUserTokenForRateLimiting(token,currentTime,0);
         }
     }
-
+    
+    console.log("is excited",isLimitExceed)
     if(!isLimitExceed){
         next()
     }else{

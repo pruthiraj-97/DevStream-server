@@ -8,7 +8,7 @@ const { createClient } =require('redis');
 //     }
 // });
 
-const redis_client=createClient({
+const redis_client=createClient({ // running in docker
     host:"redis",
     port:6379
 })

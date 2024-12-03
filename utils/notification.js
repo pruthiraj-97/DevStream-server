@@ -6,7 +6,6 @@ async function sendNewUserNotification(DashboardId,payload){
    const io=getSocket()
    if(!io) return null
    const socketIds = await io.in(DashboardId).allSockets();
-   console.log("all socket are ",socketIds)
    io.to(DashboardId).emit("newuser"+DashboardId,payload)
 }
 
@@ -15,7 +14,6 @@ async function sendUpdateCodeNotification(DashboardId,payload){
    const io=getSocket()
    if(!io) return null
    const socketIds = await io.in(DashboardId).allSockets();
-   console.log("all socket are ",socketIds)
    io.to(DashboardId).emit("newcode"+DashboardId,payload)
 }
 
@@ -24,7 +22,6 @@ async function sendCompilationResult(dashboardId,payload){
    const io=getSocket()
    if(!io) return null
    const socketIds = await io.in(dashboardId).allSockets();
-   console.log("all socket are ",socketIds)
    io.to(dashboardId).emit('compilationResult'+dashboardId,payload)
 }
 
@@ -33,13 +30,11 @@ async function sendCompilationEvent(dashboardId,userDetails){
    const io=getSocket()
    if(!io) return null
    const socketIds = await io.in(dashboardId).allSockets();
-   console.log("all socket are ",socketIds)
    const payload={
       dashboardId,
       userDetails,
       message:`${userDetails.name} is compiling the code`
    }
-   console.log("payload is ",payload)
    io.to(dashboardId).emit('compilation_start'+dashboardId,payload)
 }
 
@@ -48,7 +43,6 @@ async function sendRemoveCollborator(dashboardId,payload,result){
    const io=getSocket()
    if(!io) return null
    const socketIds = await io.in(dashboardId).allSockets();
-   console.log("all socket are ",socketIds)
    const sendMessage={
       dashboardId,
       name:payload.name,
@@ -64,7 +58,6 @@ async function BoardCastLanguageChange(dashboardId,language,payload){
    const io=getSocket()
    if(!io) return null
    const socketIds = await io.in(dashboardId).allSockets();
-   console.log("all socket are ",socketIds)
    const Message={
       language:language,
       user:payload.name,
